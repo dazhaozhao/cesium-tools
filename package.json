@@ -1,0 +1,19 @@
+{
+  "name": "cesium-tools",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vue": "^3.2.25",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vite-plugin-cesium": "^1.2.19",
+    "vue-tsc": "^0.34.7"
+  }
+}
