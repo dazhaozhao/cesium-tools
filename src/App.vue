@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Cartesian3, Viewer } from 'cesium'
+import * as Cesium from 'cesium'
 import { markRaw, onMounted, ref, unref } from 'vue'
-import { initCesiumTools, useCesiumTools } from './packages/src/index'
+import { initCesiumTools, useCesiumTools } from 'cesium-tools'
+import 'cesium-tools/dist/index.css'
 onMounted(() => {
   const viewer = new Viewer('cesium-container', {
     geocoder: false,

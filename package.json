@@ -1,19 +1,41 @@
 {
   "name": "cesium-tools",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.2",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "types": "./dist/index.d.ts",
+  "module": "./dist/cesium-tools.es.js",
+  "main": "./dist/cesium-tools.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/cesium-tools.es.js",
+      "require": "./dist/cesium-tools.umd.js"
+    },
+    "./dist/index.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {},
   "devDependencies": {
-    "vue": "^3.2.25",
     "@vitejs/plugin-vue": "^2.3.3",
+    "cesium-tools": "^0.1.1",
+    "sass": "^1.52.3",
+    "sass-loader": "^13.0.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
     "vite-plugin-cesium": "^1.2.19",
+    "vite-plugin-dts": "^1.2.0",
+    "vue": "^3.2.25",
     "vue-tsc": "^0.34.7"
-  }
+  },
+  "keywords": [
+    "cesium-tools"
+  ]
 }
