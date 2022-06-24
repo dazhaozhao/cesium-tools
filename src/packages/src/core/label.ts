@@ -6,6 +6,8 @@ import {
   Cartesian2,
   CallbackProperty,
   HeightReference,
+  PolygonHierarchy,
+  ClassificationType,
 } from 'cesium'
 import { getViewer } from './viewer'
 
@@ -47,7 +49,7 @@ export function addPoint(position: Cartesian3) {
       point: {
         color: Color.RED,
         pixelSize: 7,
-        heightReference: HeightReference.NONE,
+        heightReference: HeightReference.CLAMP_TO_GROUND,
       },
     })
   )
@@ -59,7 +61,7 @@ export function addPoint(position: Cartesian3) {
  */
 export function addLine(positions: Cartesian3[]) {
   if (!getViewer()) throw new Error('viewer is not defined')
-  var dynamicPositions = new CallbackProperty(() => {
+  const dynamicPositions = new CallbackProperty(() => {
     return positions
   }, false)
   const line = getViewer().entities.add(
@@ -68,12 +70,30 @@ export function addLine(positions: Cartesian3[]) {
         positions: dynamicPositions,
         width: 2,
         // arcType: ArcType.RHUMB,
-        clampToGround: false,
+        clampToGround: true,
         material: Color.fromCssColorString('rgb(223, 213, 44)'), //获取或设置折线的表面外观
-        //@ts-ignore
-        heightReference: HeightReference.CLAMP_TO_GROUND,
       },
     })
   )
   return line
+}
+
+/**
+ * 添加面
+ * @param positions
+ */
+export function addPolyGon(positions: Cartesian3[]) {
+  const dynamicPositions = new CallbackProperty(() => {
+    return new PolygonHierarchy(positions)
+  }, false)
+  const polygon = getViewer().entities.add(
+    new Entity({
+      polygon: {
+        hierarchy: dynamicPositions,
+        material: Color.RED.withAlpha(0.6),
+        classificationType: ClassificationType.BOTH, // 贴地表和贴模型,如果设置了，这不能使用挤出高度
+      },
+    })
+  )
+  return polygon
 }

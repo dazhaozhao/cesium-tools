@@ -1,15 +1,10 @@
 import { Viewer } from 'cesium'
 import { initToolbar } from './toolbar'
-type ToolsOptions = {
-  showToolBar?: boolean
-}
+import { ToolsOptions } from './types'
 const viewerStore = () => {
   let viewer = null as any as Viewer
   const getViewer = () => viewer
-  const setViewer = (
-    v: Viewer,
-    options: ToolsOptions = { showToolBar: true }
-  ) => {
+  const setViewer = (v: Viewer, options: ToolsOptions) => {
     if (!viewer) {
       viewer = v
       if (options && options.showToolBar) {

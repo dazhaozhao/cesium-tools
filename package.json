@@ -37,5 +37,9 @@
   },
   "keywords": [
     "cesium-tools"
-  ]
+  ],
+  "dependencies": {
+    "@turf/area": "^6.5.0",
+    "@turf/helpers": "^6.5.0"
+  }
 }

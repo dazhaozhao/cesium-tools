@@ -2,8 +2,7 @@
 import { Cartesian3, Viewer } from 'cesium'
 import * as Cesium from 'cesium'
 import { markRaw, onMounted, ref, unref } from 'vue'
-import { initCesiumTools, useCesiumTools } from 'cesium-tools'
-import 'cesium-tools/dist/index.css'
+import { initCesiumTools, useCesiumTools } from './packages/src/index'
 onMounted(() => {
   const viewer = new Viewer('cesium-container', {
     geocoder: false,
@@ -17,7 +16,7 @@ onMounted(() => {
   viewer.camera.flyTo({
     destination: Cartesian3.fromDegrees(103, 30, 200),
   })
-  initCesiumTools(viewer)
+  initCesiumTools(viewer, { showToolBar: false })
 })
 const { measurePolyLine } = useCesiumTools()
 const drawLine = () => {

@@ -8,7 +8,11 @@ import { getViewer } from './viewer'
  * @returns
  */
 export const addHandler = (
-  handler: (e: ScreenSpaceEventHandler.PositionedEvent) => void,
+  handler: (
+    e:
+      | ScreenSpaceEventHandler.PositionedEvent
+      | ScreenSpaceEventHandler.MotionEvent
+  ) => void,
   type: ScreenSpaceEventType
 ): ScreenSpaceEventHandler => {
   const _handler = new ScreenSpaceEventHandler(getViewer().scene.canvas)

@@ -1,4 +1,4 @@
-import { Cartesian3, Cartographic, Math as CesiumMath } from 'cesium'
+import { Cartesian3, Cartographic, Ellipsoid, Math as CesiumMath } from 'cesium'
 
 /**
  * 计算两点距离
@@ -86,4 +86,58 @@ export function formatDistance(distance: number) {
   return distance > 1000
     ? (distance / 1000).toFixed(2) + ' 公里'
     : distance.toFixed(2) + ' 米'
+}
+/**
+ * 计算多边形的中心
+ * @param mPoints
+ * @returns {*[]}
+ */
+export function getCenterOfGravityPoint(mPoints: Cartesian3[]) {
+  let centerPoint = mPoints[0]
+  for (let i = 1; i < mPoints.length; i++) {
+    centerPoint = Cartesian3.midpoint(centerPoint, mPoints[i], new Cartesian3())
+  }
+  return centerPoint
+}
+
+//坐标转换 笛卡尔转84
+export const transformCartesianToWGS84 = (cartesian: Cartesian3) => {
+  const ellipsoid = Ellipsoid.WGS84
+  const cartographic = ellipsoid.cartesianToCartographic(cartesian)
+  return {
+    lng: CesiumMath.toDegrees(cartographic.longitude),
+    lat: CesiumMath.toDegrees(cartographic.latitude),
+    alt: cartographic.height,
+  }
+}
+//坐标数组转换 笛卡尔转84
+export const transformWGS84ArrayToCartesianArray = (
+  WSG84Arr: { lon: number; lng?: number; lat: number; alt: number }[],
+  alt: number
+) => {
+  return WSG84Arr
+    ? WSG84Arr.map((item) => transformWGS84ToCartesian(item, alt))
+    : []
+}
+//坐标转换 84转笛卡尔
+export const transformWGS84ToCartesian = (
+  position: { lon: number; lng?: number; lat: number; alt: number },
+  alt: number
+) => {
+  return position
+    ? Cartesian3.fromDegrees(
+        position.lng || position.lon,
+        position.lat,
+        (position.alt = alt || position.alt),
+        Ellipsoid.WGS84
+      )
+    : Cartesian3.ZERO
+}
+//坐标数组转换 84转笛卡尔
+export const transformCartesianArrayToWGS84Array = (
+  cartesianArr: Cartesian3[]
+) => {
+  return cartesianArr
+    ? cartesianArr.map((item) => transformCartesianToWGS84(item))
+    : []
 }
