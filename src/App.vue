@@ -16,7 +16,7 @@ onMounted(() => {
   viewer.camera.flyTo({
     destination: Cartesian3.fromDegrees(103, 30, 200),
   })
-  initCesiumTools(viewer, { showToolBar: false })
+  initCesiumTools(viewer, { showToolBar: true })
 })
 const { measurePolyLine, measurePolygon } = useCesiumTools()
 const drawLine = () => {
@@ -35,8 +35,6 @@ const drawPolygon = () => {
 
 <template>
   <div style="height: 100vh; margin: 0; padding: 0">
-    <button class="cesium-tool-container" @click="drawLine">绘制线</button>
-    <button class="cesium-tool-container" @click="drawPolygon">绘制面</button>
     <div id="cesium-container" style="height: 100vh"></div>
   </div>
 </template>

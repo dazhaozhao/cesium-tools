@@ -5,15 +5,18 @@ $xsPadding: 4px;
 $smPadding: 8px;
 $middlePadding: 16px;
 $borderRadius: 4px;
-$width: 100px;
+$width: 100;
+$left: 20;
+$top: 20;
 $fontSize: 14px;
 $itemHoverBgColor: rgba(40, 116, 179, 0.8);
 .toolbar-container {
-  width: $width;
+  width: #{$width}px;
   z-index: $zIndex;
   position: absolute;
-  left: 20px;
-  top: 20px;
+  left: #{$left}px;
+  top: #{$top}px;
+  border: 1px solid $textColor;
   background: $bgColor;
   color: $textColor;
   cursor: pointer;
@@ -24,6 +27,7 @@ $itemHoverBgColor: rgba(40, 116, 179, 0.8);
     border-bottom-right-radius: 0;
     .toolbar-items {
       display: block;
+      border: 1px solid $textColor;
       &:last-child {
         border-bottom-left-radius: $borderRadius;
         border-bottom-right-radius: $borderRadius;
@@ -36,8 +40,9 @@ $itemHoverBgColor: rgba(40, 116, 179, 0.8);
     text-align: center;
   }
   .toolbar-items {
+    transform: translateX(-1px);
     display: none;
-    width: $width;
+    width: #{$width}px;
     position: absolute;
     background-color: $bgColor;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -45,13 +50,37 @@ $itemHoverBgColor: rgba(40, 116, 179, 0.8);
     .toolbar-item {
       color: $textColor;
       text-decoration: none;
-      padding: $xsPadding $middlePadding;
+      padding: 6px $middlePadding;
       display: block;
       font-size: $fontSize;
       text-align: center;
       &:hover {
         background-color: $itemHoverBgColor;
       }
+    }
+  }
+}
+.measure-bar {
+  position: absolute;
+  display: flex;
+  z-index: $zIndex;
+  left: #{$left + $width + 20}px;
+  top: #{$top}px;
+  border-radius: $borderRadius;
+  border: 1px solid $textColor;
+  background-color: $bgColor;
+
+  .measure-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $textColor;
+    font-size: $fontSize;
+    padding: $smPadding $middlePadding;
+    cursor: pointer;
+    &:not(:last-child) {
+      border-right: 1px solid $textColor;
     }
   }
 }

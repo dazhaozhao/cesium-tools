@@ -1,3 +1,4 @@
+import { entityCollection } from './measure'
 import {
   Cartesian3,
   Entity,
@@ -34,6 +35,7 @@ export function addLabel(centerPoint: Cartesian3, text: string) {
       },
     })
   )
+  entityCollection.push(entity)
   return entity
 }
 
@@ -53,6 +55,7 @@ export function addPoint(position: Cartesian3) {
       },
     })
   )
+  entityCollection.push(point)
   return point
 }
 /**
@@ -75,6 +78,7 @@ export function addLine(positions: Cartesian3[]) {
       },
     })
   )
+  entityCollection.push(line)
   return line
 }
 
@@ -90,10 +94,11 @@ export function addPolyGon(positions: Cartesian3[]) {
     new Entity({
       polygon: {
         hierarchy: dynamicPositions,
-        material: Color.RED.withAlpha(0.5),
+        material: Color.RED.withAlpha(0.6),
         classificationType: ClassificationType.BOTH, // 贴地表和贴模型,如果设置了，这不能使用挤出高度
       },
     })
   )
+  entityCollection.push(polygon)
   return polygon
 }

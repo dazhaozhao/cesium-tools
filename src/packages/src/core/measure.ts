@@ -3,8 +3,6 @@ import {
   Entity,
   ScreenSpaceEventType,
   Ray,
-  Color,
-  HeightReference,
   ScreenSpaceEventHandler,
 } from 'cesium'
 import { addHandler } from './handler'
@@ -20,14 +18,19 @@ import {
 import { getViewer } from './viewer'
 import area from '@turf/area'
 import { polygon, Position } from '@turf/helpers'
-const entityCollection = [] as any as Entity[]
 
+export let entityCollection = [] as any as Entity[]
+const destroy = () => {
+  entityCollection.length &&
+    entityCollection.forEach((entity) => getViewer().entities.remove(entity))
+  entityCollection = []
+}
 /**
  * 距离测量
  * @param callback
  * @returns
  */
-function measurePolyLine(callback: MeasureCallback) {
+function measurePolyLine(callback?: MeasureCallback) {
   getViewer().scene.globe.depthTestAgainstTerrain = true
   if (!getViewer()) throw new Error('viewer is not defined')
   const positions = [] as Cartesian3[]
@@ -46,19 +49,14 @@ function measurePolyLine(callback: MeasureCallback) {
       positions.push(cartesian.clone())
     }
     positions.push(cartesian)
-    const _point = addPoint(cartesian)
-    entityCollection.push(_point)
+    addPoint(cartesian)
     const _distance = getDistance(
       positions.length >= 3 ? positions[positions.length - 3] : positions[0],
       positions[positions.length - 1]
     )
     distance = _distance + distance
     if (_distance > 0 && positions.length >= 2) {
-      const entity = addLabel(
-        positions[positions.length - 1],
-        formatDistance(distance)
-      )
-      entityCollection.push(entity as Entity)
+      addLabel(positions[positions.length - 1], formatDistance(distance))
     }
   }, ScreenSpaceEventType.LEFT_CLICK)
   // 移动
@@ -71,8 +69,7 @@ function measurePolyLine(callback: MeasureCallback) {
     if (positions.length >= 2) {
       positions.pop()
       positions.push(movePosition)
-      const line = addLine(positions)
-      entityCollection.push(line)
+      addLine(positions)
       if (currentLabelEntity) {
         getViewer().entities.remove(currentLabelEntity)
         entityCollection.splice(entityCollection.indexOf(currentLabelEntity), 1)
@@ -103,7 +100,7 @@ function measurePolyLine(callback: MeasureCallback) {
  * @param callback
  * @param isArea
  */
-function measurePolygon(callback: MeasureCallback, isArea = true) {
+function measurePolygon(callback?: MeasureCallback, isArea = true) {
   const positions = [] as Cartesian3[]
   let labelEntity = null as any as Entity
   getViewer().canvas.style.cursor = 'crosshair'
@@ -167,7 +164,6 @@ function measurePolygon(callback: MeasureCallback, isArea = true) {
 
       const centerPoint = getCenterOfGravityPoint(positions)
       labelEntity = addLabel(centerPoint, text)
-      entityCollection.push(labelEntity)
     }
   }, ScreenSpaceEventType.MOUSE_MOVE)
   // right click event
@@ -187,4 +183,4 @@ function measurePolygon(callback: MeasureCallback, isArea = true) {
   )
 }
 
-export { measurePolyLine, measurePolygon }
+export { measurePolyLine, measurePolygon, destroy }
