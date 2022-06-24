@@ -90,7 +90,7 @@ export function addPolyGon(positions: Cartesian3[]) {
     new Entity({
       polygon: {
         hierarchy: dynamicPositions,
-        material: Color.RED.withAlpha(0.6),
+        material: Color.RED.withAlpha(0.5),
         classificationType: ClassificationType.BOTH, // 贴地表和贴模型,如果设置了，这不能使用挤出高度
       },
     })

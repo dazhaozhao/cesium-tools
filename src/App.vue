@@ -18,10 +18,16 @@ onMounted(() => {
   })
   initCesiumTools(viewer, { showToolBar: false })
 })
-const { measurePolyLine } = useCesiumTools()
+const { measurePolyLine, measurePolygon } = useCesiumTools()
 const drawLine = () => {
   console.log(1)
   measurePolyLine((positions) => {
+    console.log(positions)
+  })
+}
+const drawPolygon = () => {
+  console.log(1)
+  measurePolygon((positions) => {
     console.log(positions)
   })
 }
@@ -30,6 +36,7 @@ const drawLine = () => {
 <template>
   <div style="height: 100vh; margin: 0; padding: 0">
     <button class="cesium-tool-container" @click="drawLine">绘制线</button>
+    <button class="cesium-tool-container" @click="drawPolygon">绘制面</button>
     <div id="cesium-container" style="height: 100vh"></div>
   </div>
 </template>
