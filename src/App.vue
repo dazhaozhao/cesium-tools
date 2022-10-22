@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Cartesian3, Viewer } from 'cesium'
-import * as Cesium from 'cesium'
-import { markRaw, onMounted, ref, unref } from 'vue'
-import { initCesiumTools, useCesiumTools } from './packages/src/index'
+import { Cartesian3, Viewer } from "cesium";
+import * as Cesium from "cesium";
+import { markRaw, onMounted, ref, unref } from "vue";
+import { initCesiumTools, useCesiumTools } from "./packages/src/index";
 onMounted(() => {
-  const viewer = new Viewer('cesium-container', {
+  const viewer = new Viewer("cesium-container", {
     geocoder: false,
     selectionIndicator: false,
     animation: false,
@@ -12,25 +12,25 @@ onMounted(() => {
     vrButton: false,
     infoBox: false,
     timeline: false,
-  })
+  });
   viewer.camera.flyTo({
     destination: Cartesian3.fromDegrees(103, 30, 200),
-  })
-  initCesiumTools(viewer, { showToolBar: true })
-})
-const { measurePolyLine, measurePolygon } = useCesiumTools()
+  });
+  initCesiumTools(viewer, { showToolBar: true });
+});
+const { measurePolyLine, measurePolygon } = useCesiumTools();
 const drawLine = () => {
-  console.log(1)
+  console.log(1);
   measurePolyLine((positions) => {
-    console.log(positions)
-  })
-}
+    console.log(positions);
+  });
+};
 const drawPolygon = () => {
-  console.log(1)
+  console.log(1);
   measurePolygon((positions) => {
-    console.log(positions)
-  })
-}
+    console.log(positions);
+  });
+};
 </script>
 
 <template>

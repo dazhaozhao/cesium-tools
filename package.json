@@ -1,6 +1,6 @@
 {
   "name": "cesium-tools",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "files": [
     "dist",
     "README.md"
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
     "cesium-tools": "^0.1.1",
+    "prettier": "^2.7.1",
     "sass": "^1.52.3",
     "sass-loader": "^13.0.0",
     "typescript": "^4.5.4",

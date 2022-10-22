@@ -11,7 +11,7 @@ $top: 20;
 $fontSize: 14px;
 $itemHoverBgColor: rgba(40, 116, 179, 0.8);
 .toolbar-container {
-  width: #{$width}px;
+  //   width: #{$width}px;
   z-index: $zIndex;
   position: absolute;
   left: #{$left}px;
@@ -21,37 +21,34 @@ $itemHoverBgColor: rgba(40, 116, 179, 0.8);
   color: $textColor;
   cursor: pointer;
   border-radius: $borderRadius;
-
   &:hover {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
     .toolbar-items {
-      display: block;
-      border: 1px solid $textColor;
-      &:last-child {
-        border-bottom-left-radius: $borderRadius;
-        border-bottom-right-radius: $borderRadius;
-      }
+      border-bottom: none;
     }
   }
   .toolbar-btn {
     padding: $smPadding $middlePadding;
     font-size: $fontSize;
     text-align: center;
+    display: flex;
+  }
+  .toolbar-items-container {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
   }
   .toolbar-items {
     transform: translateX(-1px);
-    display: none;
-    width: #{$width}px;
-    position: absolute;
+    width: 100%;
+    border: 1px solid $textColor;
     background-color: $bgColor;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: $zIndex;
     .toolbar-item {
       color: $textColor;
       text-decoration: none;
+      display: flex;
       padding: 6px $middlePadding;
-      display: block;
       font-size: $fontSize;
       text-align: center;
       &:hover {

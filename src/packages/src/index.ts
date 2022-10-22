@@ -1,6 +1,7 @@
 import { Viewer } from 'cesium'
 import { setViewer } from './core/viewer'
 import * as measure from './core/measure'
+import './style/index.scss'
 import { ToolsOptions } from './core/types'
 
 const useCesiumTools = () => {
